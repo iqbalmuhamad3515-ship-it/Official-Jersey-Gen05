@@ -101,9 +101,9 @@
             </div>
             
             <!-- 5. GAMBAR ILUSTRASI PANDUAN UKURAN -->
-            <div class="w-full bg-white/5 rounded-2xl overflow-hidden border border-white/10">
-                <!-- GANTI LINK GAMBAR PANDUAN UKURAN DI SINI (src) -->
-                <img src="https://github.com/iqbalmuhamad3515-ship-it/Official-Jersey-Gen05/blob/main/Adult%20Size%20Chart.png?raw=true" alt="Ilustrasi Ukuran Jersey" class="w-full h-auto object-contain">
+            <div class="w-full bg-white/5 rounded-2xl overflow-hidden border border-white/10 text-center p-4">
+                <!-- GANTI LINK GAMBAR PANDUAN UKURAN DI SINI -->
+                <img src="https://github.com/iqbalmuhamad3515-ship-it/Official-Jersey-Gen05/blob/main/Adult%20Size%20Chart.png?raw=true" alt="Ilustrasi Ukuran Jersey" class="mx-auto w-full h-auto object-contain max-h-[400px]" onerror="this.src='https://placehold.co/600x400/000000/d4af37?text=Gambar+Panduan+Ukuran'">
             </div>
 
             <div class="overflow-x-auto">
@@ -238,8 +238,9 @@
                                     Lihat Size Chart
                                 </button>
                             </div>
-                            <div id="sizeContainer" class="grid grid-cols-4 md:grid-cols-5 gap-3">
-                                <!-- JS injects buttons here -->
+                            <!-- Container untuk Radio Buttons Ukuran -->
+                            <div id="sizeContainer" class="grid grid-cols-4 md:grid-cols-5 gap-3 min-h-[100px]">
+                                <!-- Tombol akan di-render di sini oleh JavaScript -->
                             </div>
                         </div>
                     </div>
@@ -285,7 +286,34 @@
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Konfigurasi
+        // 1. FUNGSI RENDER UKURAN (Dijalankan Pertama Kali)
+        const renderSizes = () => {
+            const sizes = ['S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL', '6XL', '7XL'];
+            const sizeContainer = document.getElementById('sizeContainer');
+            if (sizeContainer) {
+                sizeContainer.innerHTML = '';
+                sizes.forEach(size => {
+                    const label = document.createElement('label');
+                    label.className = "relative group cursor-pointer";
+                    label.innerHTML = `
+                        <input type="radio" name="size" value="${size}" class="peer absolute opacity-0" required>
+                        <div class="text-center py-4 border border-white/10 rounded-2xl peer-checked:bg-gold peer-checked:text-black font-black text-[10px] transition-all hover:bg-white/5 uppercase tracking-tighter">
+                            ${size}
+                        </div>
+                    `;
+                    sizeContainer.appendChild(label);
+                });
+            }
+        };
+
+        // Jalankan render ukuran segera setelah DOM siap
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', renderSizes);
+        } else {
+            renderSizes();
+        }
+
+        // Konfigurasi Firebase
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { apiKey: "", authDomain: "", projectId: "", storageBucket: "", messagingSenderId: "", appId: "" };
         const appId = typeof __app_id !== 'undefined' ? __app_id : "default-gen05-id";
         
@@ -298,13 +326,14 @@
 
         let userAuthenticated = false;
 
-        // Custom Notification Helper
+        // Helper Notifikasi
         function showNotification(title, message, isError = false) {
             const notif = document.getElementById('notification');
             const icon = document.getElementById('notif-icon');
             const nTitle = document.getElementById('notif-title');
             const nMsg = document.getElementById('notif-message');
 
+            if (!notif) return;
             nTitle.innerText = title;
             nMsg.innerText = message;
             
@@ -318,24 +347,7 @@
             setTimeout(() => { notif.style.display = 'none'; }, 5000);
         }
 
-        // Render Sizes (Immediate)
-        const renderSizes = () => {
-            const sizes = ['S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL', '6XL', '7XL'];
-            const sizeContainer = document.getElementById('sizeContainer');
-            if (!sizeContainer) return;
-            sizeContainer.innerHTML = '';
-            sizes.forEach(size => {
-                const id = `size-${size}`;
-                sizeContainer.innerHTML += `
-                    <label class="relative group cursor-pointer">
-                        <input type="radio" name="size" value="${size}" id="${id}" class="peer absolute opacity-0" required>
-                        <div class="text-center py-4 border border-white/10 rounded-2xl peer-checked:bg-gold peer-checked:text-black font-black text-[10px] transition-all hover:bg-white/5 uppercase tracking-tighter">${size}</div>
-                    </label>`;
-            });
-        };
-        renderSizes();
-
-        // Login Handling
+        // Handle Auth
         const initAuth = async () => {
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -357,7 +369,7 @@
 
         initAuth();
 
-        // Real-time Data
+        // Real-time Data dari Firestore
         function startListeningToData() {
             if (!userAuthenticated) return;
             const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'orders'));
@@ -372,17 +384,17 @@
                 orders.forEach((data) => {
                     table.innerHTML += `
                         <tr class="hover:bg-white/[0.02] border-b border-white/5 transition-colors">
-                            <td class="p-8 font-black text-white uppercase tracking-tight">${data.name}</td>
-                            <td class="p-8 text-gray-400 text-xs">${data.jersey}</td>
-                            <td class="p-8 text-center text-gray-400 text-xs">${data.type}</td>
-                            <td class="p-8 text-center"><span class="bg-gold text-black px-3 py-1 rounded font-black text-[10px]">${data.size}</span></td>
+                            <td class="p-8 font-black text-white uppercase tracking-tight">${data.name || '-'}</td>
+                            <td class="p-8 text-gray-400 text-xs">${data.jersey || '-'}</td>
+                            <td class="p-8 text-center text-gray-400 text-xs">${data.type || '-'}</td>
+                            <td class="p-8 text-center"><span class="bg-gold text-black px-3 py-1 rounded font-black text-[10px]">${data.size || '-'}</span></td>
                             <td class="p-8 text-right"><span class="text-[10px] gold-text font-black uppercase tracking-widest">Pending TF</span></td>
                         </tr>`;
                 });
             });
         }
 
-        // Form Submit
+        // Form Submission
         const form = document.getElementById('preOrderForm');
         if (form) {
             form.addEventListener('submit', async (e) => {
@@ -429,7 +441,7 @@
                     
                     showNotification("Berhasil", "Pesanan Anda telah tercatat!");
                     form.reset();
-                    renderSizes(); // Reset visual radio buttons
+                    renderSizes(); // Reset pilihan ukuran secara visual
                 } catch (error) {
                     console.error(error);
                     showNotification("Error", "Gagal mengirim data. Coba lagi.", true);
