@@ -13,17 +13,10 @@
             color: #e5e5e5;
             scroll-behavior: smooth;
         }
-        .gold-text {
-            color: #d4af37;
-        }
-        .bg-gold {
-            background-color: #d4af37;
-        }
-        .border-gold {
-            border-color: #d4af37;
-        }
+        .gold-text { color: #d4af37; }
+        .bg-gold { background-color: #d4af37; }
+        .border-gold { border-color: #d4af37; }
         .hero-bg {
-            /* 1. GAMBAR BACKGROUND */
             background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.95)), url('https://github.com/iqbalmuhamad3515-ship-it/Official-Jersey-Gen05/blob/main/Gen05%20Background%20WEB.png?raw=true');
             background-size: cover;
             background-position: center;
@@ -50,7 +43,6 @@
         .animate-fade-in {
             animation: fadeIn 0.8s ease-out forwards;
         }
-        /* Custom Notification */
         #notification {
             display: none;
             position: fixed;
@@ -63,7 +55,6 @@
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
-        /* Size Chart Modal */
         #sizeChartModal {
             display: none;
             position: fixed;
@@ -86,7 +77,7 @@
         </div>
         <div>
             <h4 id="notif-title" class="font-bold text-white uppercase text-xs tracking-widest">Berhasil</h4>
-            <p id="notif-message" class="text-sm text-gray-400">Pesanan telah tercatat di database.</p>
+            <p id="notif-message" class="text-sm text-gray-400">Pesanan telah tercatat.</p>
         </div>
     </div>
 
@@ -99,13 +90,9 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
             </div>
-            
-            <!-- 5. GAMBAR ILUSTRASI PANDUAN UKURAN -->
             <div class="w-full bg-white/5 rounded-2xl overflow-hidden border border-white/10 text-center p-4">
-                <!-- GANTI LINK GAMBAR PANDUAN UKURAN DI SINI -->
-                <img src="https://github.com/iqbalmuhamad3515-ship-it/Official-Jersey-Gen05/blob/main/Adult%20Size%20Chart.png?raw=true" alt="Ilustrasi Ukuran Jersey" class="mx-auto w-full h-auto object-contain max-h-[400px]" onerror="this.src='https://placehold.co/600x400/000000/d4af37?text=Gambar+Panduan+Ukuran'">
+                <img src="https://github.com/iqbalmuhamad3515-ship-it/Official-Jersey-Gen05/blob/main/Adult%20Size%20Chart.png?raw=true" alt="Panduan Ukuran" class="mx-auto w-full h-auto object-contain max-h-[400px]" onerror="this.src='https://placehold.co/600x400/000000/d4af37?text=Gambar+Panduan+Ukuran'">
             </div>
-
             <div class="overflow-x-auto">
                 <table class="w-full text-center text-sm">
                     <thead>
@@ -121,21 +108,16 @@
                         <tr><td class="p-3 font-bold">L</td><td class="p-3">52</td><td class="p-3">72</td></tr>
                         <tr><td class="p-3 font-bold">XL</td><td class="p-3">54</td><td class="p-3">74</td></tr>
                         <tr><td class="p-3 font-bold">2XL</td><td class="p-3">56</td><td class="p-3">76</td></tr>
-                        <tr><td class="p-3 font-bold">3XL</td><td class="p-3">58</td><td class="p-3">78</td></tr>
-                        <tr><td class="p-3 font-bold">4XL</td><td class="p-3">60</td><td class="p-3">80</td></tr>
-                        <tr><td class="p-3 font-bold">5XL</td><td class="p-3">62</td><td class="p-3">82</td></tr>
                         <tr><td class="p-3 font-bold text-gold">Custom</td><td class="p-3" colspan="2">Hubungi Admin</td></tr>
                     </tbody>
                 </table>
             </div>
-            <p class="text-[10px] text-gray-500 italic uppercase text-center">*Toleransi jahitan 1-2 cm</p>
         </div>
     </div>
 
     <header class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 hero-bg border-b border-gold/10">
         <div class="mb-8 animate-fade-in">
-            <!-- 2. LOGO GEN05 -->
-            <img src="https://github.com/iqbalmuhamad3515-ship-it/Official-Jersey-Gen05/blob/main/Gen05%20SOLID.png?raw=true" alt="Logo GEN05" class="w-48 h-48 md:w-64 md:h-64 object-contain drop-shadow-[0_0_40px_rgba(212,175,55,0.4)] mx-auto transition-transform duration-700 hover:rotate-3">
+            <img src="https://github.com/iqbalmuhamad3515-ship-it/Official-Jersey-Gen05/blob/main/Gen05%20SOLID.png?raw=true" alt="Logo GEN05" class="w-48 h-48 md:w-64 md:h-64 object-contain drop-shadow-[0_0_40px_rgba(212,175,55,0.4)] mx-auto">
         </div>
         <div class="space-y-4 max-w-4xl animate-fade-in" style="animation-delay: 0.2s;">
             <h1 class="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none">
@@ -166,12 +148,10 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div class="jersey-card glass rounded-[2.5rem] overflow-hidden group hover-scale">
                     <div class="relative aspect-square overflow-hidden bg-white/5">
-                        <!-- 3. GAMBAR MATCH JERSEY -->
                         <img src="https://github.com/iqbalmuhamad3515-ship-it/Official-Jersey-Gen05/blob/main/Jersey%20Match%20Gen05%202026.png?raw=true" alt="Match Jersey" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
                         <div class="absolute bottom-8 left-8">
-                            <h3 class="text-3xl font-black uppercase text-white tracking-tighter text-shadow">Match Jersey</h3>
-                            <!-- HARGA MATCH JERSEY -->
+                            <h3 class="text-3xl font-black uppercase text-white tracking-tighter">Match Jersey</h3>
                             <p class="text-xl font-bold gold-text tracking-widest mt-1">Rp 235.000</p>
                         </div>
                     </div>
@@ -179,12 +159,10 @@
 
                 <div class="jersey-card glass rounded-[2.5rem] overflow-hidden group hover-scale">
                     <div class="relative aspect-square overflow-hidden bg-white/5 flex items-center justify-center">
-                        <!-- 4. GAMBAR CLASS JERSEY -->
                         <img src="https://github.com/iqbalmuhamad3515-ship-it/Official-Jersey-Gen05/blob/main/Jersey%20Class%202%20Gen05%202026.png?raw=true" alt="Class Jersey" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
                         <div class="absolute bottom-8 left-8">
-                            <h3 class="text-3xl font-black uppercase text-white tracking-tighter text-shadow">Class Jersey</h3>
-                            <!-- HARGA CLASS JERSEY -->
+                            <h3 class="text-3xl font-black uppercase text-white tracking-tighter">Class Jersey</h3>
                             <p class="text-xl font-bold gold-text tracking-widest mt-1">Rp 210.000</p>
                         </div>
                     </div>
@@ -230,7 +208,7 @@
                             </div>
                         </div>
 
-                        <!-- SIZE SELECTION SECTION -->
+                        <!-- SIZE SELECTION -->
                         <div class="space-y-4">
                             <div class="flex justify-between items-end px-2">
                                 <label class="text-xs uppercase font-black gold-text tracking-widest">Pilih Ukuran</label>
@@ -238,9 +216,8 @@
                                     Lihat Size Chart
                                 </button>
                             </div>
-                            <!-- Container untuk Radio Buttons Ukuran -->
-                            <div id="sizeContainer" class="grid grid-cols-4 md:grid-cols-5 gap-3 min-h-[100px]">
-                                <!-- Tombol akan di-render di sini oleh JavaScript -->
+                            <div id="sizeContainer" class="grid grid-cols-4 md:grid-cols-5 gap-3 min-h-[120px]">
+                                <!-- Ukuran akan dirender di sini -->
                             </div>
                         </div>
                     </div>
@@ -268,7 +245,7 @@
                             </tr>
                         </thead>
                         <tbody id="recapTableBody" class="divide-y divide-white/5 font-medium">
-                            <!-- JS injects rows here -->
+                            <!-- JS injects rows -->
                         </tbody>
                     </table>
                 </div>
@@ -280,177 +257,139 @@
         <p class="text-sm uppercase tracking-widest">&copy; 2026 GEN05 Official Jersey. Supported by Bara Tactic Board</p>
     </footer>
 
-    <!-- SDK & Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // 1. FUNGSI RENDER UKURAN (Dijalankan Pertama Kali)
+        // CONFIGURATION
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { apiKey: "", authDomain: "", projectId: "", storageBucket: "", messagingSenderId: "", appId: "" };
+        const appId = typeof __app_id !== 'undefined' ? __app_id : "gen05-official-v1";
+        
+        // TEMPELKAN WEB APP URL ANDA DI SINI
+        const scriptURL = "https://script.google.com/macros/s/AKfycbxCTpnKP22fWYZ8ttptzhL3oOA5_azaFsZDHlnMqw77QwMfjuHHVKXCZXwYD3s8yP2Eaw/exec"; 
+
+        // RENDER SIZES
+        const sizes = ['S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL', '6XL', '7XL'];
         const renderSizes = () => {
-            const sizes = ['S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL', '6XL', '7XL'];
-            const sizeContainer = document.getElementById('sizeContainer');
-            if (sizeContainer) {
-                sizeContainer.innerHTML = '';
-                sizes.forEach(size => {
-                    const label = document.createElement('label');
-                    label.className = "relative group cursor-pointer";
-                    label.innerHTML = `
-                        <input type="radio" name="size" value="${size}" class="peer absolute opacity-0" required>
-                        <div class="text-center py-4 border border-white/10 rounded-2xl peer-checked:bg-gold peer-checked:text-black font-black text-[10px] transition-all hover:bg-white/5 uppercase tracking-tighter">
+            const container = document.getElementById('sizeContainer');
+            if (container) {
+                container.innerHTML = sizes.map(size => `
+                    <label class="relative group cursor-pointer block">
+                        <input type="radio" name="size" value="${size}" class="peer hidden" required>
+                        <div class="text-center py-4 border border-white/10 rounded-2xl peer-checked:bg-gold peer-checked:text-black font-black text-[12px] transition-all hover:bg-white/10 uppercase tracking-tighter">
                             ${size}
                         </div>
-                    `;
-                    sizeContainer.appendChild(label);
-                });
+                    </label>
+                `).join('');
             }
         };
 
-        // Jalankan render ukuran segera setelah DOM siap
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', renderSizes);
-        } else {
-            renderSizes();
-        }
+        // Initialize UI Immediately
+        renderSizes();
 
-        // Konfigurasi Firebase
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { apiKey: "", authDomain: "", projectId: "", storageBucket: "", messagingSenderId: "", appId: "" };
-        const appId = typeof __app_id !== 'undefined' ? __app_id : "default-gen05-id";
-        
-        // PASTE URL WEB APP GOOGLE SCRIPT ANDA DI SINI
-        const scriptURL = ""; 
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        let userAuthenticated = false;
-
-        // Helper Notifikasi
+        // NOTIFICATION HELPER
         function showNotification(title, message, isError = false) {
             const notif = document.getElementById('notification');
-            const icon = document.getElementById('notif-icon');
-            const nTitle = document.getElementById('notif-title');
-            const nMsg = document.getElementById('notif-message');
-
             if (!notif) return;
-            nTitle.innerText = title;
-            nMsg.innerText = message;
-            
-            if (isError) {
-                icon.classList.replace('bg-gold', 'bg-red-500');
-            } else {
-                icon.classList.replace('bg-red-500', 'bg-gold');
-            }
-
+            document.getElementById('notif-title').innerText = title;
+            document.getElementById('notif-message').innerText = message;
+            document.getElementById('notif-icon').className = `w-10 h-10 rounded-full flex items-center justify-center text-black ${isError ? 'bg-red-500' : 'bg-gold'}`;
             notif.style.display = 'flex';
             setTimeout(() => { notif.style.display = 'none'; }, 5000);
         }
 
-        // Handle Auth
+        // FIREBASE LOGIC
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
         const initAuth = async () => {
-            try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-            } catch (error) {
-                console.error("Auth error:", error);
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                await signInWithCustomToken(auth, __initial_auth_token);
+            } else {
+                await signInAnonymously(auth);
             }
         };
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                userAuthenticated = true;
-                startListeningToData();
+                const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'orders'));
+                onSnapshot(q, (snapshot) => {
+                    const table = document.getElementById('recapTableBody');
+                    if (!table) return;
+                    let html = '';
+                    const orders = snapshot.docs.map(doc => doc.data());
+                    orders.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+                    
+                    orders.forEach(data => {
+                        html += `
+                            <tr class="hover:bg-white/[0.02] border-b border-white/5 transition-colors">
+                                <td class="p-8 font-black text-white uppercase tracking-tight">${data.name || '-'}</td>
+                                <td class="p-8 text-gray-400 text-xs">${data.jersey || '-'}</td>
+                                <td class="p-8 text-center text-gray-400 text-xs">${data.type || '-'}</td>
+                                <td class="p-8 text-center"><span class="bg-gold text-black px-3 py-1 rounded font-black text-[10px]">${data.size || '-'}</span></td>
+                                <td class="p-8 text-right"><span class="text-[10px] gold-text font-black uppercase tracking-widest">Pending TF</span></td>
+                            </tr>`;
+                    });
+                    table.innerHTML = html || '<tr><td colspan="5" class="p-8 text-center text-gray-500">Belum ada pesanan</td></tr>';
+                }, (err) => console.error("Realtime err:", err));
             }
         });
 
         initAuth();
 
-        // Real-time Data dari Firestore
-        function startListeningToData() {
-            if (!userAuthenticated) return;
-            const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'orders'));
-            onSnapshot(q, (snapshot) => {
-                const table = document.getElementById('recapTableBody');
-                if (!table) return;
-                table.innerHTML = '';
-                const orders = [];
-                snapshot.forEach(doc => orders.push({ id: doc.id, ...doc.data() }));
-                orders.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
-
-                orders.forEach((data) => {
-                    table.innerHTML += `
-                        <tr class="hover:bg-white/[0.02] border-b border-white/5 transition-colors">
-                            <td class="p-8 font-black text-white uppercase tracking-tight">${data.name || '-'}</td>
-                            <td class="p-8 text-gray-400 text-xs">${data.jersey || '-'}</td>
-                            <td class="p-8 text-center text-gray-400 text-xs">${data.type || '-'}</td>
-                            <td class="p-8 text-center"><span class="bg-gold text-black px-3 py-1 rounded font-black text-[10px]">${data.size || '-'}</span></td>
-                            <td class="p-8 text-right"><span class="text-[10px] gold-text font-black uppercase tracking-widest">Pending TF</span></td>
-                        </tr>`;
-                });
-            });
-        }
-
-        // Form Submission
+        // FORM SUBMISSION
         const form = document.getElementById('preOrderForm');
-        if (form) {
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                if (!userAuthenticated) {
-                    showNotification("Error", "Koneksi sistem belum siap.", true);
-                    return;
-                }
+        form?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!auth.currentUser) return;
 
-                const submitBtn = document.getElementById('submitBtn');
-                const selectedSize = document.querySelector('input[name="size"]:checked');
-                
-                if (!selectedSize) {
-                    showNotification("Error", "Harap pilih ukuran (Size) terlebih dahulu.", true);
-                    return;
-                }
+            const selectedSize = form.querySelector('input[name="size"]:checked');
+            if (!selectedSize) {
+                showNotification("Error", "Harap pilih ukuran!", true);
+                return;
+            }
 
-                submitBtn.disabled = true;
-                submitBtn.textContent = "MENGIRIM...";
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerText = "MEMPROSES...";
 
-                const payload = {
-                    name: document.getElementById('name').value,
-                    jersey: document.getElementById('jerseyOrder').value,
-                    type: document.getElementById('jerseyType').value,
-                    size: selectedSize.value
-                };
+            const payload = {
+                name: document.getElementById('name').value,
+                jersey: document.getElementById('jerseyOrder').value,
+                type: document.getElementById('jerseyType').value,
+                size: selectedSize.value
+            };
 
-                try {
-                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'orders'), {
-                        ...payload,
-                        userId: auth.currentUser?.uid,
-                        createdAt: serverTimestamp()
+            try {
+                // Save to Firebase
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'orders'), {
+                    ...payload,
+                    userId: auth.currentUser.uid,
+                    createdAt: serverTimestamp()
+                });
+
+                // Sync to Google Sheets
+                if (scriptURL) {
+                    await fetch(scriptURL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: JSON.stringify(payload)
                     });
-
-                    if (scriptURL) {
-                        await fetch(scriptURL, {
-                            method: 'POST',
-                            mode: 'no-cors',
-                            cache: 'no-cache',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-                    }
-                    
-                    showNotification("Berhasil", "Pesanan Anda telah tercatat!");
-                    form.reset();
-                    renderSizes(); // Reset pilihan ukuran secara visual
-                } catch (error) {
-                    console.error(error);
-                    showNotification("Error", "Gagal mengirim data. Coba lagi.", true);
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = "KIRIM PESANAN";
                 }
-            });
-        }
+
+                showNotification("Berhasil", "Pesanan telah masuk rekapitulasi!");
+                form.reset();
+                renderSizes();
+            } catch (err) {
+                console.error(err);
+                showNotification("Gagal", "Terjadi kesalahan sistem.", true);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "KIRIM PESANAN";
+            }
+        });
     </script>
 </body>
 </html>
