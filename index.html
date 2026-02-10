@@ -48,7 +48,7 @@
             position: fixed;
             top: 2rem;
             right: 2rem;
-            z-index: 1000;
+            z-index: 3000;
             animation: slideIn 0.3s ease-out;
         }
         @keyframes slideIn {
@@ -185,11 +185,11 @@
             <div class="lg:col-span-7">
                 <form id="preOrderForm" class="glass p-10 rounded-[2.5rem] space-y-8 shadow-2xl relative">
                     <div class="space-y-6">
-                        <input type="text" id="name" required class="w-full bg-white/5 border border-white/10 rounded-2xl p-5 focus:border-gold outline-none transition-colors" placeholder="Nama Lengkap">
+                        <input type="text" id="name" name="name" required class="w-full bg-white/5 border border-white/10 rounded-2xl p-5 focus:border-gold outline-none transition-colors" placeholder="Nama Lengkap">
                         
                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="relative">
-                                <select id="jerseyOrder" required class="w-full bg-white/5 border border-white/10 rounded-2xl p-5 focus:border-gold outline-none appearance-none cursor-pointer">
+                                <select id="jerseyOrder" name="jersey" required class="w-full bg-white/5 border border-white/10 rounded-2xl p-5 focus:border-gold outline-none appearance-none cursor-pointer">
                                     <option value="" class="bg-black">Kategori Jersey...</option>
                                     <option value="Match Jersey" class="bg-black text-white">Match Jersey</option>
                                     <option value="Class Jersey" class="bg-black text-white">Class Jersey</option>
@@ -199,7 +199,7 @@
                             </div>
 
                             <div class="relative">
-                                <select id="jerseyType" required class="w-full bg-white/5 border border-white/10 rounded-2xl p-5 focus:border-gold outline-none appearance-none cursor-pointer">
+                                <select id="jerseyType" name="type" required class="w-full bg-white/5 border border-white/10 rounded-2xl p-5 focus:border-gold outline-none appearance-none cursor-pointer">
                                     <option value="" class="bg-black">Pilih Lengan...</option>
                                     <option value="Short Sleeves" class="bg-black text-white">Short Sleeves (Pendek)</option>
                                     <option value="Long Sleeves" class="bg-black text-white">Long Sleeves (Panjang)</option>
@@ -217,7 +217,7 @@
                                 </button>
                             </div>
                             <div id="sizeContainer" class="grid grid-cols-4 md:grid-cols-5 gap-3 min-h-[120px]">
-                                <!-- Ukuran akan dirender di sini -->
+                                <!-- Ukuran akan dirender di sini secara otomatis -->
                             </div>
                         </div>
                     </div>
@@ -231,7 +231,15 @@
 
         <!-- Table Recap -->
         <section id="rekap-data" class="space-y-10 pb-20">
-            <h2 class="text-4xl font-black uppercase tracking-tighter italic">Live <span class="gold-text">Rekapitulasi</span></h2>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <h2 class="text-4xl font-black uppercase tracking-tighter italic">Live <span class="gold-text">Rekapitulasi</span></h2>
+                <div class="flex gap-4">
+                    <span id="live-indicator" class="flex items-center gap-2 text-[10px] font-black tracking-widest text-red-500 animate-pulse">
+                        <span class="w-2 h-2 rounded-full bg-red-500"></span> LIVE SYNCING
+                    </span>
+                </div>
+            </div>
+            
             <div class="overflow-hidden glass rounded-[2.5rem] border border-white/5">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-sm">
@@ -245,7 +253,7 @@
                             </tr>
                         </thead>
                         <tbody id="recapTableBody" class="divide-y divide-white/5 font-medium">
-                            <!-- JS injects rows -->
+                            <tr><td colspan="5" class="p-12 text-center text-gray-500 italic">Mencari data pesanan terbaru...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -257,19 +265,30 @@
         <p class="text-sm uppercase tracking-widest">&copy; 2026 GEN05 Official Jersey. Supported by Bara Tactic Board</p>
     </footer>
 
+    <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // CONFIGURATION
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { apiKey: "", authDomain: "", projectId: "", storageBucket: "", messagingSenderId: "", appId: "" };
-        const appId = typeof __app_id !== 'undefined' ? __app_id : "gen05-official-v1";
+        // Global config provided by environment
+        let firebaseConfig, app, auth, db, appId;
         
-        // TEMPELKAN WEB APP URL ANDA DI SINI
+        try {
+            firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+            appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            
+            if (firebaseConfig.apiKey) {
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+            }
+        } catch (e) {
+            console.warn("Konfigurasi Firebase tidak lengkap.");
+        }
+
         const scriptURL = "https://script.google.com/macros/s/AKfycbxCTpnKP22fWYZ8ttptzhL3oOA5_azaFsZDHlnMqw77QwMfjuHHVKXCZXwYD3s8yP2Eaw/exec"; 
 
-        // RENDER SIZES
         const sizes = ['S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL', '6XL', '7XL'];
         const renderSizes = () => {
             const container = document.getElementById('sizeContainer');
@@ -285,10 +304,6 @@
             }
         };
 
-        // Initialize UI Immediately
-        renderSizes();
-
-        // NOTIFICATION HELPER
         function showNotification(title, message, isError = false) {
             const notif = document.getElementById('notification');
             if (!notif) return;
@@ -299,97 +314,133 @@
             setTimeout(() => { notif.style.display = 'none'; }, 5000);
         }
 
-        // FIREBASE LOGIC
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        const initAuth = async () => {
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                await signInWithCustomToken(auth, __initial_auth_token);
-            } else {
-                await signInAnonymously(auth);
+        async function initApp() {
+            if (!auth || !db) return;
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (err) {
+                console.error("Auth Error:", err);
             }
-        };
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'orders'));
-                onSnapshot(q, (snapshot) => {
-                    const table = document.getElementById('recapTableBody');
-                    if (!table) return;
-                    let html = '';
-                    const orders = snapshot.docs.map(doc => doc.data());
-                    orders.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
-                    
-                    orders.forEach(data => {
+            onAuthStateChanged(auth, (user) => {
+                if (user) setupRealtimeListener();
+            });
+        }
+
+        function setupRealtimeListener() {
+            const tableBody = document.getElementById('recapTableBody');
+            const indicator = document.getElementById('live-indicator');
+            if (!tableBody || !db) return;
+
+            const ordersCol = collection(db, 'artifacts', appId, 'public', 'data', 'orders');
+            onSnapshot(ordersCol, (snapshot) => {
+                const docs = snapshot.docs.map(doc => doc.data());
+                docs.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+
+                let html = '';
+                if (docs.length === 0) {
+                    html = '<tr><td colspan="5" class="p-12 text-center text-gray-500 italic">Belum ada pesanan yang tercatat.</td></tr>';
+                } else {
+                    docs.slice(0, 15).forEach(data => {
                         html += `
-                            <tr class="hover:bg-white/[0.02] border-b border-white/5 transition-colors">
+                            <tr class="hover:bg-white/[0.02] border-b border-white/5 transition-colors animate-fade-in">
                                 <td class="p-8 font-black text-white uppercase tracking-tight">${data.name || '-'}</td>
                                 <td class="p-8 text-gray-400 text-xs">${data.jersey || '-'}</td>
                                 <td class="p-8 text-center text-gray-400 text-xs">${data.type || '-'}</td>
                                 <td class="p-8 text-center"><span class="bg-gold text-black px-3 py-1 rounded font-black text-[10px]">${data.size || '-'}</span></td>
-                                <td class="p-8 text-right"><span class="text-[10px] gold-text font-black uppercase tracking-widest">Pending TF</span></td>
+                                <td class="p-8 text-right"><span class="text-[10px] gold-text font-black uppercase tracking-widest">${data.status || 'PROSES'}</span></td>
                             </tr>`;
                     });
-                    table.innerHTML = html || '<tr><td colspan="5" class="p-8 text-center text-gray-500">Belum ada pesanan</td></tr>';
-                }, (err) => console.error("Realtime err:", err));
-            }
-        });
+                }
+                tableBody.innerHTML = html;
+                if (indicator) {
+                    indicator.innerHTML = '<span class="w-2 h-2 rounded-full bg-green-500"></span> SYNCED';
+                    indicator.className = "flex items-center gap-2 text-[10px] font-black tracking-widest text-green-500";
+                }
+            }, (error) => {
+                tableBody.innerHTML = '<tr><td colspan="5" class="p-12 text-center text-red-500/50 text-xs">Gagal memuat data real-time.</td></tr>';
+            });
+        }
 
-        initAuth();
-
-        // FORM SUBMISSION
         const form = document.getElementById('preOrderForm');
         form?.addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (!auth.currentUser) return;
-
-            const selectedSize = form.querySelector('input[name="size"]:checked');
-            if (!selectedSize) {
-                showNotification("Error", "Harap pilih ukuran!", true);
+            
+            const btn = document.getElementById('submitBtn');
+            const user = auth?.currentUser;
+            
+            // Logika baru: Jika Firebase belum siap (user null), tetap izinkan ke Google Sheets
+            // Hanya cegah jika keduannya (Firebase & Sheets) tidak ada
+            if (!user && (!scriptURL || scriptURL.includes('AKfycbx...'))) {
+                showNotification("Sistem Sibuk", "Sedang mengautentikasi, mohon tunggu sebentar.", true);
                 return;
             }
 
-            const btn = document.getElementById('submitBtn');
             btn.disabled = true;
-            btn.innerText = "MEMPROSES...";
+            btn.innerText = "MENGIRIM...";
 
-            const payload = {
-                name: document.getElementById('name').value,
-                jersey: document.getElementById('jerseyOrder').value,
-                type: document.getElementById('jerseyType').value,
-                size: selectedSize.value
-            };
+            const name = document.getElementById('name').value;
+            const jersey = document.getElementById('jerseyOrder').value;
+            const type = document.getElementById('jerseyType').value;
+            const size = form.querySelector('input[name="size"]:checked')?.value;
+
+            if (!size) {
+                showNotification("Pilih Ukuran", "Harap pilih ukuran jersey terlebih dahulu.", true);
+                btn.disabled = false;
+                btn.innerText = "KIRIM PESANAN";
+                return;
+            }
 
             try {
-                // Save to Firebase
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'orders'), {
-                    ...payload,
-                    userId: auth.currentUser.uid,
-                    createdAt: serverTimestamp()
-                });
-
-                // Sync to Google Sheets
-                if (scriptURL) {
-                    await fetch(scriptURL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        body: JSON.stringify(payload)
-                    });
+                // 1. Simpan ke Firestore (Jika login berhasil)
+                if (user && db) {
+                    const payloadFirestore = {
+                        name, jersey, type, size,
+                        status: 'PROSES',
+                        createdAt: serverTimestamp(),
+                        userId: user.uid
+                    };
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'orders'), payloadFirestore);
                 }
 
-                showNotification("Berhasil", "Pesanan telah masuk rekapitulasi!");
+                // 2. Sinkronisasi ke Google Sheets (Selalu lakukan sebagai backup)
+                if (scriptURL && !scriptURL.includes('AKfycbx...')) {
+                    const formData = new FormData();
+                    formData.append('action', 'write');
+                    formData.append('name', name);
+                    formData.append('jersey', jersey);
+                    formData.append('type', type);
+                    formData.append('size', size);
+
+                    // Mode no-cors digunakan untuk melewati blokir browser pada Google Apps Script
+                    fetch(scriptURL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: formData
+                    }).catch(err => console.warn("Silent error syncing to sheets:", err));
+                }
+
+                showNotification("Berhasil", "Pesanan Anda telah diterima!");
                 form.reset();
                 renderSizes();
             } catch (err) {
-                console.error(err);
-                showNotification("Gagal", "Terjadi kesalahan sistem.", true);
+                console.error("Submit Error:", err);
+                showNotification("Terjadi Kendala", "Gagal menyimpan otomatis. Mohon hubungi Admin.", true);
             } finally {
                 btn.disabled = false;
                 btn.innerText = "KIRIM PESANAN";
             }
         });
+
+        // Jalankan render ukuran segera tanpa menunggu Firebase
+        renderSizes();
+        initApp();
+
+        document.addEventListener('DOMContentLoaded', renderSizes);
     </script>
 </body>
 </html>
